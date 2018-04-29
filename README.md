@@ -39,7 +39,7 @@ I adopted the simple procedure consisting in attaching around each atom a small 
 
 I made 2 particular choices:
 
-1. Instead of just taking the density value at the center of each pixel, I computed approximate values of the density integral in each pixel (thus mitigating the loss of resolution)
+1. Instead of just taking the density value at the center of each pixel, I computed an approximate integral value in each pixel (thus mitigating the loss of resolution)
 2. To take into account the periodicity of the material, I included atom positions in adjacent lattice cells that were close enough to have an influence on the pixelized lattice cell (in this way, 3D cubes were made covariant with the arbitrary choice of the origin of the lattice cell)
 
 ![img_lattice_cube](./output/img/lattice_cube.png)
@@ -62,7 +62,7 @@ In theory, stacking benefits the most from uncorrelated prediction, i.e. from mo
 - Kernel Ridge Regression
 - XGBoost
 
-For the second-level meta-model I used SVR again.
+For the second-level meta-model, I used SVR again.
 
 
 ### Results
@@ -86,7 +86,7 @@ I tried a second approach based on 3D Convolution Neural Networks (CNNs) to proc
 I designed the model architecture to take into account problem specificities:
 
 - to take into account the periodicity of the 3D cubes, I implemented a custom keras layer that first padded the input with periodic conditions, and then performed a standard convolution operation with a "valid" border condition
-- to deal with the heterogeneous inputs, I simply merged the output of the CNN processing of 3D cubes with secondary inputs, and this merged information was further processed by a feedforward network
+- to deal with the heterogeneous inputs, I simply merged the output of the CNN processing of 3D cubes with secondary inputs, and this merged information was further processed by a feedforward network.
 
 I made standard choices of model regularization with Batch Normalization layers in the CNN and Dropout layers between Dense layers.
 
